@@ -3,7 +3,7 @@ from http import HTTPStatus
 
 from flask import jsonify, request
 
-from . import app, db
+from yacut import app, db
 from yacut.error_handlers import InvalidAPiUsage
 from yacut.models import URLMap
 from yacut.views import get_unique_short_id
@@ -12,8 +12,10 @@ ID_NOT_FOUND = 'Указанный id не найден'
 REQUEST_BODY_MISSING = 'Отсутствует тело запроса'
 URL_MUST_HAVE = '\"url\" является обязательным полем!'
 SHORT_NAME = 'Указано недопустимое имя для короткой ссылки'
-PATTERN_MATCH = r"^[a-zA-Z0-9]{1,16}$"
-NAME_TAKEN = 'Имя "{}" уже занято.'
+NAME_TAKEN = 'Имя "py" уже занято.'
+
+# Регулярное выражение для определения правильности имени для короткой ссылки
+PATTERN_MATCH = r'^[a-zA-Z0-9]{1,16}$'
 
 
 @app.route('/api/id/<string:custom_id>/', methods=['GET'])
@@ -25,6 +27,8 @@ def get_url(custom_id):
 
 
 @app.route('/api/id/', methods=['POST'])
+#TypeError: Allowed methods must be a list of strings, for example: @app.route(..., methods=["POST"])
+# Или я что-то не понял....
 def create_short_link():
     data = request.get_json()
     if not data:
@@ -38,10 +42,10 @@ def create_short_link():
         data['custom_id'] = get_unique_short_id()
 
     if not re.match(PATTERN_MATCH, data['custom_id']):
-        raise InvalidAPiUsage(SHORT_NAME, HTTPStatus.BAD_REQUEST)
+        raise InvalidAPiUsage(SHORT_NAME.format(py=short_name), HTTPStatus.BAD_REQUEST)
 
     if URLMap.query.filter_by(short=short_name).first():
-        raise InvalidAPiUsage(NAME_TAKEN.format(short_name), HTTPStatus.BAD_REQUEST)
+        raise InvalidAPiUsage(NAME_TAKEN, HTTPStatus.BAD_REQUEST)
     url_map = URLMap()
     url_map.from_dict(data)
     db.session.add(url_map)

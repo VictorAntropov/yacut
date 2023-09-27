@@ -2,9 +2,8 @@ from datetime import datetime
 
 from flask import url_for
 
-from . import db
-
-SHORT_STR = 16
+from yacut import db
+from yacut.settings import SHORT_STR
 
 
 class URLMap(db.Model):

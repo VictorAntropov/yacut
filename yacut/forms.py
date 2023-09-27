@@ -2,6 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, URLField
 from wtforms.validators import DataRequired, Length, Optional
 
+from yacut.settings import SHORT_STR
+
 
 class YaCutForm(FlaskForm):
     original_link = URLField(
@@ -11,6 +13,6 @@ class YaCutForm(FlaskForm):
     )
     custom_id = StringField(
         'Вариант короткого идентификатора',
-        validators=[Length(1, 16), Optional()]
+        validators=[Length(1, SHORT_STR), Optional()]
     )
     submit = SubmitField('Создать')
