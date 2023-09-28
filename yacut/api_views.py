@@ -18,7 +18,7 @@ NAME_TAKEN = 'Имя "py" уже занято.'
 PATTERN_MATCH = r'^[a-zA-Z0-9]{1,16}$'
 
 
-@app.route('/api/id/<string:custom_id>/', methods=['GET'])
+@app.route('/api/id/<string:custom_id>/', methods=('GET',))
 def get_url(custom_id):
     url = URLMap.query.filter_by(short=custom_id).first()
     if url is not None:
@@ -26,9 +26,8 @@ def get_url(custom_id):
     raise InvalidAPiUsage(ID_NOT_FOUND, HTTPStatus.NOT_FOUND)
 
 
-@app.route('/api/id/', methods=['POST'])
-#TypeError: Allowed methods must be a list of strings, for example: @app.route(..., methods=["POST"])
-# Или я что-то не понял....
+@app.route('/api/id/', methods=('POST',))
+#Согласен, накосячил
 def create_short_link():
     data = request.get_json()
     if not data:

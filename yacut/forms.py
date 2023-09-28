@@ -8,11 +8,10 @@ from yacut.settings import SHORT_STR
 class YaCutForm(FlaskForm):
     original_link = URLField(
         'Оригинальная ссылка',
-        validators=[DataRequired(message='Обязательно поле'),
-                    ]
+        validators=(DataRequired(message='Обязательно поле'),)
     )
     custom_id = StringField(
         'Вариант короткого идентификатора',
-        validators=[Length(1, SHORT_STR), Optional()]
+        validators=(Length(1, SHORT_STR), Optional())
     )
     submit = SubmitField('Создать')

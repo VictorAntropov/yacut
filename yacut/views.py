@@ -6,7 +6,7 @@ from yacut.models import URLMap
 from yacut.utils import get_unique_short_id
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=('GET', 'POST'))
 def index_view():
     form = YaCutForm()
     if not form.validate_on_submit():
@@ -30,7 +30,7 @@ def index_view():
     return render_template('index.html', form=form, short=short_name)
 
 
-@app.route('/<string:custom_id>', methods=['GET'])
+@app.route('/<string:custom_id>', methods=('GET',))
 def redirect_view(custom_id):
     return redirect(
         URLMap.query.filter_by(short=custom_id).first_or_404().original)
