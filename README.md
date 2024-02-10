@@ -50,6 +50,9 @@ pip install -r requirements.txt
 
 - Запустить проект из командной строки:
 ```
+flask db init
+flask db migrate -m 'Base'
+flask db upgrade
 flask run
 ```
 

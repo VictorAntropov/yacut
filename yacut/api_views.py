@@ -27,7 +27,6 @@ def get_url(custom_id):
 
 
 @app.route('/api/id/', methods=('POST',))
-#Согласен, накосячил
 def create_short_link():
     data = request.get_json()
     if not data:
@@ -41,7 +40,8 @@ def create_short_link():
         data['custom_id'] = get_unique_short_id()
 
     if not re.match(PATTERN_MATCH, data['custom_id']):
-        raise InvalidAPiUsage(SHORT_NAME.format(py=short_name), HTTPStatus.BAD_REQUEST)
+        raise InvalidAPiUsage(SHORT_NAME.format(py=short_name),
+                              HTTPStatus.BAD_REQUEST)
 
     if URLMap.query.filter_by(short=short_name).first():
         raise InvalidAPiUsage(NAME_TAKEN, HTTPStatus.BAD_REQUEST)
