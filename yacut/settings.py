@@ -4,8 +4,6 @@ import os
 class Config(object):
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI',
                                         default='sqlite:///db.sqlite3')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('VALUE')
     SECRET_KEY = os.getenv('SECRET_KEY')
-
-
-SHORT_STR = 16

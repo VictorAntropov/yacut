@@ -4,18 +4,11 @@ from http import HTTPStatus
 from flask import jsonify, request
 
 from yacut import app, db
+from yacut.constants import (ID_NOT_FOUND, NAME_TAKEN, PATTERN_MATCH,
+                             REQUEST_BODY_MISSING, SHORT_NAME, URL_MUST_HAVE)
 from yacut.error_handlers import InvalidAPiUsage
 from yacut.models import URLMap
 from yacut.views import get_unique_short_id
-
-ID_NOT_FOUND = 'Указанный id не найден'
-REQUEST_BODY_MISSING = 'Отсутствует тело запроса'
-URL_MUST_HAVE = '\"url\" является обязательным полем!'
-SHORT_NAME = 'Указано недопустимое имя для короткой ссылки'
-NAME_TAKEN = 'Имя "py" уже занято.'
-
-# Регулярное выражение для определения правильности имени для короткой ссылки
-PATTERN_MATCH = r'^[a-zA-Z0-9]{1,16}$'
 
 
 @app.route('/api/id/<string:custom_id>/', methods=('GET',))

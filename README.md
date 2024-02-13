@@ -1,8 +1,6 @@
-# Учебный проект в рамках курса "Python-разработчик" от ЯндексПрактикум. Сервис YaCut.
-
-## Задачи проекта:
-### Написать сервис укорачивания ссылок и API к нему.
-#### Возможности сервиса :
+# Сервис YaCut
+## Задачи проекта: написать сервис укорачивания ссылок и API к нему. 
+## Возможности сервиса :
 - Генерация коротких ссылок и связь их с исходными длинными ссылками.
 - Переадресация на исходный адрес при обращении к коротким ссылкам.
 ---
@@ -20,7 +18,7 @@ git clone https://github.com/VictorAntropov/yacut.git
 cd yacut
 ```
 
-Cоздать и активировать виртуальное окружение:
+- Cоздать и активировать виртуальное окружение:
 
 ```
 python3 -m venv venv
@@ -38,28 +36,35 @@ python3 -m venv venv
     source venv/scripts/activate
     ```
 
-Установить зависимости из файла requirements.txt:
-
-```
-python3 -m pip install --upgrade pip
-```
+- Установить зависимости из файла:
 
 ```
 pip install -r requirements.txt
 ```
+```
+python3 -m pip install --upgrade pip
+```
+- Инициализировать БД и сделать миграции:
+
+```
+flask db init
+flask db migrate
+flask db upgrade
+```
 
 - Запустить проект из командной строки:
 ```
-flask db init
-flask db migrate -m 'Base'
-flask db upgrade
 flask run
+```
+
+- Проект будет доступен локально по ссылке:
+```
 http://127.0.0.1:5000
 ```
 
 ##  Автор проекта:
 ### Антропов Виктор:
 ```
-e-mail: antropovvic1997@yandex.ru
+e-mail: AntropovVictor.V@yandex.ru
 GitHub: github.com/VictorAntropov
 ```

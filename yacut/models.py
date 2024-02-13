@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import url_for
 
 from yacut import db
-from yacut.settings import SHORT_STR
+from yacut.constants import SHORT_STR
 
 
 class URLMap(db.Model):
@@ -13,6 +13,7 @@ class URLMap(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def to_dict(self):
+        """Сериализатор, преобразование объекта модели в словарь"""
         return dict(
             url=self.original,
             short_link=url_for('redirect_view', custom_id=self.short,
@@ -20,6 +21,7 @@ class URLMap(db.Model):
         )
 
     def from_dict(self, data):
+        """Десериализатор"""
         api_key = {'url': 'original', 'custom_id': 'short'}
         for field in api_key:
             if field in data:
